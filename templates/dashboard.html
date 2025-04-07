@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Hyderabad Property Deals</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles_enhanced.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='additional_styles.css') }}">
+</head>
+
+<body>
+    <header class="main-header">
+        <div class="container header-container">
+            <div class="logo">
+                <a href="{{ url_for('index') }}">
+                    <i class="fas fa-home"></i>
+                    <span>Hyderabad Property Deals</span>
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    <li><a href="{{ url_for('dashboard') }}" class="active">Dashboard</a></li>
+                    <li><a href="#" onclick="logout()">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="dashboard-main">
+        <div class="container">
+            <div class="dashboard-header">
+                <h1>Welcome, {{ session.username }}!</h1>
+            </div>
+
+            <div class="dashboard-grid">
+                <div class="dashboard-section saved-properties">
+                    <h2>Your Saved Properties</h2>
+                    <div class="property-list">
+                        {% for i in range(1, 4) %}
+                        <div class="property-card">
+                            <a href="{{ url_for('property_detail', property_id=i) }}">
+                                <div class="property-image">
+                                    <img src="{{ url_for('static', filename='images/property' + i|string + '.jpg') }}" alt="Property {{ i }}">
+                                    <span class="price">₹{{ ["85L", "1.2Cr", "95L"][i-1] }}</span>
+                                </div>
+                                <div class="property-info">
+                                    <h3>Luxury Villa in {{ ["Gachibowli", "Jubilee Hills", "Banjara Hills"][i-1] }}</h3>
+                                    <p class="location"><i class="fas fa-map-marker-alt"></i> {{ ["Gachibowli", "Jubilee Hills", "Banjara Hills"][i-1] }}, Hyderabad</p>
+                                    <div class="property-features">
+                                        <span><i class="fas fa-bed"></i> {{ [3, 4, 3][i-1] }} Beds</span>
+                                        <span><i class="fas fa-bath"></i> {{ [2, 3, 2][i-1] }} Baths</span>
+                                        <span><i class="fas fa-vector-square"></i> {{ [2000, 3000, 2200][i-1] }} sqft</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="dashboard-section recent-searches">
+                    <h2>Recent Searches</h2>
+                    <ul class="search-list">
+                        <li>
+                            <i class="fas fa-search"></i>
+                            <span>3 BHK in Gachibowli</span>
+                            <small>2 days ago</small>
+                        </li>
+                        <li>
+                            <i class="fas fa-search"></i>
+                            <span>Villas in Jubilee Hills</span>
+                            <small>5 days ago</small>
+                        </li>
+                        <li>
+                            <i class="fas fa-search"></i>
+                            <span>Apartments in Hitech City</span>
+                            <small>1 week ago</small>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="dashboard-section property-alerts">
+                    <h2>Property Alerts</h2>
+                    <div class="alerts-list">
+                        <div class="alert-item">
+                            <i class="fas fa-bell"></i>
+                            <div class="alert-content">
+                                <h4>Price Drop Alert</h4>
+                                <p>Property in Gachibowli has reduced its price by 5%</p>
+                                <small>1 day ago</small>
+                            </div>
+                        </div>
+                        <div class="alert-item">
+                            <i class="fas fa-bell"></i>
+                            <div class="alert-content">
+                                <h4>New Property Match</h4>
+                                <p>New property matching your search criteria in Madhapur</p>
+                                <small>3 days ago</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About Us</h3>
+                    <p>Hyderabad Property Deals is your trusted partner in finding the perfect property in Hyderabad. We offer a wide range of residential and commercial properties.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Properties</a></li>
+                        <li><a href="#">Services</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">About</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <p><i class="fas fa-phone"></i> +91 9876543210</p>
+                    <p><i class="fas fa-envelope"></i> info@hydpropertydeals.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Hyderabad, Telangana, India</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Hyderabad Property Deals. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function logout() {
+            // Clear session storage
+            sessionStorage.removeItem('user');
+            // Clear local storage
+            localStorage.removeItem('user');
+            // Redirect to login page
+            window.location.href = '{{ url_for("login") }}';
+        }
+    </script>
+</body>
+
+</html>

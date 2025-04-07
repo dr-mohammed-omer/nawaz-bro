@@ -1,0 +1,353 @@
+/* Additional Property Detail Styles */
+.property-tags {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.tag {
+    display: inline-block;
+    padding: 6px 15px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: white;
+}
+
+.tag.featured {
+    background-color: #3498db;
+}
+
+.tag.new {
+    background-color: #2ecc71;
+}
+
+.tag.luxury {
+    background-color: #9b59b6;
+}
+
+.tag.hot-deal {
+    background-color: #e74c3c;
+}
+
+.property-image .property-tags {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 1;
+}
+
+.property-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.action-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 20px;
+    border-radius: 30px;
+    background-color: white;
+    color: var(--text-color);
+    font-weight: 500;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.action-btn i {
+    margin-right: 8px;
+    color: var(--secondary-color);
+}
+
+.action-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    color: var(--secondary-color);
+}
+
+.action-btn.primary {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.action-btn.primary i {
+    color: white;
+}
+
+.action-btn.primary:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* Property Overview Styles */
+.property-overview {
+    background-color: var(--light-color);
+    padding: 30px;
+    border-radius: 12px;
+    margin-bottom: 40px;
+    box-shadow: var(--shadow-light);
+}
+
+.overview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.overview-item {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.overview-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.overview-item i {
+    font-size: 1.5rem;
+    color: var(--secondary-color);
+    margin-right: 15px;
+    background-color: rgba(52, 152, 219, 0.1);
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.overview-item h4 {
+    margin: 0 0 5px;
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+.overview-item p {
+    margin: 0;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+/* Location Info Styles */
+.location-info {
+    margin-top: 40px;
+}
+
+.key-distances {
+    background-color: var(--light-color);
+    padding: 25px;
+    border-radius: 12px;
+    margin: 20px 0;
+}
+
+.key-distances h4 {
+    margin-bottom: 15px;
+}
+
+.key-distances ul {
+    list-style: none;
+    padding: 0;
+}
+
+.key-distances ul li {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.key-distances ul li i {
+    color: var(--secondary-color);
+    margin-right: 10px;
+}
+
+.map-container {
+    margin-top: 30px;
+    position: relative;
+}
+
+.location-map {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: var(--shadow-light);
+}
+
+.map-note {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    margin-top: 10px;
+    text-align: right;
+}
+
+/* Agent Info Styles */
+.agent-rating {
+    margin: 10px 0;
+    color: #f39c12;
+}
+
+.agent-rating span {
+    color: var(--text-color);
+    margin-left: 5px;
+}
+
+.agent-title {
+    color: var(--text-light);
+    font-style: italic;
+}
+
+.agent-contact {
+    margin: 15px 0;
+}
+
+.view-profile-btn {
+    margin-top: 10px;
+    background-color: transparent;
+    border: 1px solid var(--secondary-color);
+    color: var(--secondary-color);
+}
+
+.view-profile-btn:hover {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+/* Mortgage Calculator Styles */
+.mortgage-calculator {
+    margin-top: 30px;
+    background-color: var(--light-color);
+    padding: 25px;
+    border-radius: 12px;
+}
+
+.calculator-form {
+    margin-top: 20px;
+}
+
+.calculator-form .form-group {
+    margin-bottom: 15px;
+}
+
+.calculator-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.calculator-form input[type="range"] {
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.calculator-form output {
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+    font-weight: 600;
+}
+
+.calculator-result {
+    background-color: white;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.monthly-payment {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin: 0;
+}
+
+.calculator-btn {
+    width: 100%;
+    margin-top: 10px;
+}
+
+/* About Features Section */
+.about-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.feature {
+    background-color: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: var(--shadow-light);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-medium);
+}
+
+.feature i {
+    font-size: 2.5rem;
+    color: var(--secondary-color);
+    margin-bottom: 20px;
+}
+
+.feature h3 {
+    margin-bottom: 15px;
+}
+
+.feature p {
+    color: var(--text-light);
+    margin: 0;
+}
+
+/* Property Filter Styles */
+.property-filter {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+}
+
+.property-filter button {
+    background-color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 500;
+    color: var(--text-color);
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-light);
+}
+
+.property-filter button:hover,
+.property-filter button.active {
+    background-color: var(--secondary-color);
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+}
+
+/* Section Subtitle */
+.section-subtitle {
+    text-align: center;
+    max-width: 700px;
+    margin: -20px auto 40px;
+    color: var(--text-light);
+    font-size: 1.1rem;
+}

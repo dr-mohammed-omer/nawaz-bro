@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garden Villa in Kompally - Hyderabad Property Deals</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        a {
+            text-decoration: none;
+            color: #2c3e50;
+            transition: color 0.3s ease;
+        }
+        
+        a:hover {
+            color: #e74c3c;
+        }
+        
+        ul {
+            list-style: none;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: #e74c3c;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        
+        .btn:hover {
+            background-color: #c0392b;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            color: #e74c3c;
+            font-weight: 700;
+        }
+        
+        nav ul {
+            display: flex;
+        }
+        
+        nav ul li {
+            margin-left: 20px;
+        }
+        
+        nav ul li a {
+            font-weight: 600;
+            padding: 5px 0;
+            position: relative;
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #e74c3c;
+            transition: width 0.3s ease;
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        /* Property Detail Styles */
+        .property-detail {
+            padding: 40px 0;
+        }
+        
+        .property-header {
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .property-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        
+        .location {
+            color: #7f8c8d;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #e74c3c;
+            background-color: rgba(231, 76, 60, 0.1);
+            padding: 5px 15px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+        
+        /* Gallery Styles */
+        .property-gallery {
+            margin-bottom: 40px;
+        }
+        
+        .main-image {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .thumbnail-container {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+        
+        .thumbnail {
+            flex: 0 0 150px;
+            height: 100px;
+            border-radius: 4px;
+            overflow: hidden;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+        
+        .thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .thumbnail.active, .thumbnail:hover {
+            opacity: 1;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Property Content Styles */
+        .property-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .property-description h2, 
+        .property-description h3 {
+            color: #2c3e50;
+            margin: 25px 0 15px;
+        }
+        
+        .property-description p {
+            margin-bottom: 15px;
+            color: #555;
+        }
+        
+        .property-description ul {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .property-description ul li {
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 15px;
+        }
+        
+        .property-description ul li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #e74c3c;
+        }
+        
+        /* Property Features */
+        .property-features {
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 25px 0;
+        }
+        
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 15px;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .feature-item i {
+            color: #e74c3c;
+            font-size: 1.2rem;
+        }
+        
+        /* Sidebar Styles */
+        .property-sidebar > div {
+            background-color: white;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .agent-info {
+            text-align: center;
+        }
+        
+        .agent-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+            border: 3px solid #f5f5f5;
+        }
+        
+        .agent-info h3 {
+            margin-bottom: 5px;
+            color: #2c3e50;
+        }
+        
+        .agent-info p {
+            margin-bottom: 10px;
+            color: #7f8c8d;
+        }
+        
+        .contact-agent h3 {
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+        }
+        
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+        
+        /* Similar Properties */
+        .similar-properties {
+            margin-top: 50px;
+        }
+        
+        .similar-properties h2 {
+            margin-bottom: 25px;
+            color: #2c3e50;
+        }
+        
+        .property-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .property-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .property-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .property-image {
+            position: relative;
+            height: 200px;
+        }
+        
+        .property-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .property-image .price {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            margin: 0;
+        }
+        
+        .property-details {
+            padding: 20px;
+        }
+        
+        .property-details h3 {
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        
+        .property-details .location {
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+        
+        .features {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        /* Footer Styles */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: #e74c3c;
+        }
+        
+        .footer-section p {
+            margin-bottom: 15px;
+            color: #bdc3c7;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-section ul li a {
+            color: #bdc3c7;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-section ul li a:hover {
+            color: #e74c3c;
+        }
+        
+        #newsletterForm {
+            display: flex;
+        }
+        
+        #newsletterForm input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 4px 0 0 4px;
+        }
+        
+        #newsletterForm button {
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #bdc3c7;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .property-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .main-image {
+                height: 400px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            header .container {
+                flex-direction: column;
+            }
+            
+            nav ul {
+                margin-top: 15px;
+            }
+            
+            .property-header h1 {
+                font-size: 2rem;
+            }
+            
+            .main-image {
+                height: 300px;
+            }
+            
+            .feature-list {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 576px) {
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 5px 10px;
+            }
+            
+            .feature-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .thumbnail {
+                flex: 0 0 120px;
+                height: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>Hyderabad Property Deals</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#about">About Us</a></li>
+                    <li><a href="index.html#properties">Properties</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="property-detail">
+        <div class="container">
+            <div class="property-header">
+                <h1>Garden Villa in Kompally</h1>
+                <p class="location"><i class="fas fa-map-marker-alt"></i> Kompally, Hyderabad, Telangana, India</p>
+                <div class="price">₹1.5 Cr</div>
+            </div>
+            
+            <div class="property-gallery">
+                <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Garden Villa in Kompally" class="main-image" id="mainPropertyImage">
+                
+                <div class="thumbnail-container">
+                    <div class="thumbnail active">
+                        <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Exterior view">
+                    </div>
+                    <div class="thumbnail">
+                        <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Living room">
+                    </div>
+                    <div class="thumbnail">
+                        <img src="https://images.unsplash.com/photo-1556911220-bff31c812dba?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Kitchen">
+                    </div>
+                    <div class="thumbnail">
+                        <img src="https://images.unsplash.com/photo-1540518614846-7eded433c457?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Bedroom">
+                    </div>
+                    <div class="thumbnail">
+                        <img src="https://images.unsplash.com/photo-1558036117-15d82a90b9b1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Garden">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="property-content">
+                <div class="property-description">
+                    <h2>Property Description</h2>
+                    <p>This beautiful garden villa in Kompally offers a perfect blend of modern comfort and natural beauty. Set on a 5000 sq.ft plot, this 4-bedroom villa spans 3000 sq.ft of built-up area and features a lush garden that surrounds the property.</p>
+                    
+                    <p>The villa showcases a contemporary design with spacious interiors and large windows that bring in abundant natural light. The ground floor features a welcoming living room, a formal dining area, a modern kitchen, and a guest bedroom. The upper floor houses three bedrooms, including the master suite with an attached balcony overlooking the garden.</p>
+                    
+                    <p>The highlight of this property is its beautifully landscaped garden with mature trees, flowering plants, and a small vegetable patch. The outdoor space also includes a covered patio perfect for al fresco dining and entertaining.</p>
+                    
+                    <p>The villa is equipped with modern amenities, including air conditioning in all bedrooms, solar water heating, rainwater harvesting, and a power backup system. The property also includes a two-car garage and additional parking space in the driveway.</p>
+                    
+                    <div class="property-features">
+                        <h3>Property Features</h3>
+                        <div class="feature-list">
+                            <div class="feature-item">
+                                <i class="fas fa-bed"></i>
+                                <span>4 Bedrooms</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-bath"></i>
+                                <span>3 Bathrooms</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-ruler-combined"></i>
+                                <span>3000 sq.ft</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-car"></i>
+                                <span>2 Garage Spaces</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-tree"></i>
+                                <span>Landscaped Garden</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-solar-panel"></i>
+                                <span>Solar Water Heating</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-tint"></i>
+                                <span>Rainwater Harvesting</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-bolt"></i>
+                                <span>Power Backup</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h3>Location</h3>
+                    <p>Located in Kompally, a rapidly developing suburb in North Hyderabad, this property offers a peaceful residential environment while being close to all essential amenities. The area is known for its good connectivity and growing infrastructure.</p>
+                    
+                    <p>Key distances:</p>
+                    <ul>
+                        <li>5 minutes to Kompally Central</li>
+                        <li>10 minutes to Medchal Highway</li>
+                        <li>15 minutes to Gundla Pochampally</li>
+                        <li>25 minutes to Secunderabad</li>
+                        <li>45 minutes to Rajiv Gandhi International Airport</li>
+                    </ul>
+                </div>
+                
+                <div class="property-sidebar">
+                    <div class="agent-info">
+                        <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Suresh Patel" class="agent-image">
+                        <h3>Suresh Patel</h3>
+                        <p>Property Consultant</p>
+                        <p><i class="fas fa-phone"></i> +91 9876543214</p>
+                        <p><i class="fas fa-envelope"></i> suresh@hyderabadpropertydeals.com</p>
+                    </div>
+                    
+                    <div class="contact-agent">
+                        <h3>Contact Agent</h3>
+                        <form id="contactAgentForm">
+                            <div class="form-group">
+                                <input type="text" id="agentContactName" placeholder="Your Name" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" id="agentContactEmail" placeholder="Your Email" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="tel" id="agentContactPhone" placeholder="Your Phone">
+                            </div>
+                            <div class="form-group">
+                                <textarea id="agentContactMessage" placeholder="Your Message" required>I'm interested in the Garden Villa in Kompally. Please contact me with more information.</textarea>
+                            </div>
+                            <button type="submit" class="btn">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="similar-properties">
+                <h2>Similar Properties</h2>
+                <div class="property-grid">
+                    <div class="property-card">
+                        <div class="property-image">
+                            <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Luxury Villa in Banjara Hills">
+                            <div class="price">₹2.5 Cr</div>
+                        </div>
+                        <div class="property-details">
+                            <h3>Luxury Villa in Banjara Hills</h3>
+                            <p class="location"><i class="fas fa-map-marker-alt"></i> Banjara Hills, Hyderabad</p>
+                            <div class="features">
+                                <span><i class="fas fa-bed"></i> 4 Beds</span>
+                                <span><i class="fas fa-bath"></i> 3 Baths</span>
+                                <span><i class="fas fa-ruler-combined"></i> 3500 sq.ft</span>
+                            </div>
+                            <a href="property1.html" class="btn">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Hyderabad Property Deals</h3>
+                    <p>Your trusted partner in finding the perfect property in Hyderabad.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.html#about">About Us</a></li>
+                        <li><a href="index.html#properties">Properties</a></li>
+                        <li><a href="index.html#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Newsletter</h3>
+                    <form id="newsletterForm">
+                        <input type="email" placeholder="Your Email" required>
+                        <button type="submit" class="btn">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Hyderabad Property Deals. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Image gallery functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const mainImage = document.getElementById('mainPropertyImage');
+            const thumbnails = document.querySelectorAll('.thumbnail');
+            
+            thumbnails.forEach(thumbnail => {
+                thumbnail.addEventListener('click', function() {
+                    // Update main image
+                    mainImage.src = this.querySelector('img').src;
+                    
+                    // Update active class
+                    thumbnails.forEach(thumb => thumb.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+            
+            // Contact form submission
+            const contactForm = document.getElementById('contactAgentForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    alert('Thank you for your interest! The agent will contact you soon.');
+                    this.reset();
+                });
+            }
+            
+            // Newsletter form submission
+            const newsletterForm = document.getElementById('newsletterForm');
+            if (newsletterForm) {
+                newsletterForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    alert('Thank you for subscribing to our newsletter!');
+                    this.reset();
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Hyderabad Property Deals</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles_enhanced.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='additional_styles.css') }}">
+    <style>
+        .login-type-selector {
+            margin-bottom: 20px;
+            text-align: center;
+            padding: 10px;
+            background: #f5f5f5;
+            border-radius: 5px;
+        }
+        
+        .login-type-selector label {
+            margin: 0 15px;
+            cursor: pointer;
+            padding: 8px 15px;
+            border-radius: 4px;
+            display: inline-block;
+            transition: background-color 0.3s;
+        }
+        
+        .login-type-selector label:hover {
+            background: #e0e0e0;
+        }
+        
+        .login-type-selector input[type="radio"]:checked+label {
+            background: #4a90e2;
+            color: white;
+        }
+        
+        .login-type-selector input[type="radio"] {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="main-header">
+        <div class="container header-container">
+            <div class="logo">
+                <a href="{{ url_for('index') }}">
+                    <i class="fas fa-home"></i>
+                    <span>Hyderabad Property Deals</span>
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    <li><a href="{{ url_for('login') }}" class="active">Login</a></li>
+                    <li><a href="{{ url_for('register') }}">Register</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="auth-main">
+        <div class="container">
+            <div class="auth-container">
+                <h2>Login to Your Account</h2>
+                <div class="login-type-selector">
+                    <input type="radio" id="userLogin" name="loginType" value="user" checked>
+                    <label for="userLogin">User Login</label>
+                    <input type="radio" id="adminLogin" name="loginType" value="admin">
+                    <label for="adminLogin">Admin Login</label>
+                </div>
+                <form id="loginForm" class="auth-form" method="POST">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <div class="form-group remember-me">
+                        <input type="checkbox" id="rememberMe" name="rememberMe">
+                        <label for="rememberMe">Remember me</label>
+                    </div>
+                    <button type="submit" class="btn-primary">Login</button>
+                </form>
+                <div id="errorMessage" class="message error" style="display: none;">
+                    <p id="errorText"></p>
+                </div>
+                <div id="successMessage" class="message success" style="display: none;">
+                    <p>Login successful! Redirecting to dashboard...</p>
+                </div>
+                <div class="auth-links">
+                    <p>Don't have an account? <a href="{{ url_for('register') }}">Register here</a></p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About Us</h3>
+                    <p>Hyderabad Property Deals is your trusted partner in finding the perfect property in Hyderabad. We offer a wide range of residential and commercial properties.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <p><i class="fas fa-phone"></i> +91 9876543210</p>
+                    <p><i class="fas fa-envelope"></i> info@hydpropertydeals.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Hyderabad Property Deals. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const rememberMe = document.getElementById('rememberMe').checked;
+            const errorMessage = document.getElementById('errorMessage');
+            const errorText = document.getElementById('errorText');
+            const successMessage = document.getElementById('successMessage');
+
+            // Send login request
+            fetch('{{ url_for("login") }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Store user data
+                        const userData = {
+                            username: username,
+                            userId: data.user_id,
+                            isAdmin: data.is_admin,
+                            loggedIn: true
+                        };
+
+                        // Store in localStorage if "Remember me" is checked, otherwise in sessionStorage
+                        if (rememberMe) {
+                            localStorage.setItem('user', JSON.stringify(userData));
+                        } else {
+                            sessionStorage.setItem('user', JSON.stringify(userData));
+                        }
+
+                        // Show success message
+                        errorMessage.style.display = 'none';
+                        successMessage.style.display = 'block';
+
+                        // Redirect to appropriate dashboard
+                        setTimeout(() => {
+                            window.location.href = data.is_admin ? '{{ url_for("admin_dashboard") }}' : '{{ url_for("dashboard") }}';
+                        }, 1500);
+                    } else {
+                        // Show error message
+                        errorText.textContent = data.message;
+                        errorMessage.style.display = 'block';
+                        successMessage.style.display = 'none';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    errorText.textContent = 'An error occurred. Please try again.';
+                    errorMessage.style.display = 'block';
+                    successMessage.style.display = 'none';
+                });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Hyderabad Property Deals</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles_enhanced.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='additional_styles.css') }}">
+    <style>
+        .admin-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .stat-card i {
+            font-size: 2em;
+            color: #4a90e2;
+            margin-bottom: 10px;
+        }
+        
+        .stat-number {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .activities-list,
+        .inquiries-list {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        
+        .activity-item,
+        .inquiry-item {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .activity-item:last-child,
+        .inquiry-item:last-child {
+            border-bottom: none;
+        }
+        
+        .activity-time,
+        .inquiry-time {
+            color: #666;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="main-header">
+        <div class="container header-container">
+            <div class="logo">
+                <a href="{{ url_for('index') }}">
+                    <i class="fas fa-home"></i>
+                    <span>Hyderabad Property Deals</span>
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    <li><a href="{{ url_for('admin_dashboard') }}" class="active">Admin</a></li>
+                    <li><a href="#" onclick="logout()">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="admin-main">
+        <div class="container">
+            <h1>Admin Dashboard</h1>
+
+            <div class="admin-stats">
+                <div class="stat-card">
+                    <i class="fas fa-users"></i>
+                    <div class="stat-number">{{ user_count }}</div>
+                    <div class="stat-label">Total Users</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-envelope"></i>
+                    <div class="stat-number">{{ inquiry_count }}</div>
+                    <div class="stat-label">Total Inquiries</div>
+                </div>
+            </div>
+
+            <div class="admin-content">
+                <section class="activities-list">
+                    <h2>Recent User Activities</h2>
+                    {% for activity in activities %}
+                    <div class="activity-item">
+                        <div class="activity-info">
+                            <strong>{{ activity.username }}</strong> - {{ activity.activity_type }}
+                            <div class="activity-data">{{ activity.activity_data }}</div>
+                            <div class="activity-time">{{ activity.created_at }}</div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </section>
+
+                <section class="inquiries-list">
+                    <h2>Recent Property Inquiries</h2>
+                    {% for inquiry in inquiries %}
+                    <div class="inquiry-item">
+                        <div class="inquiry-info">
+                            <strong>{{ inquiry.name }}</strong> - {{ inquiry.property_title }}
+                            <div class="inquiry-message">{{ inquiry.message }}</div>
+                            <div class="inquiry-contact">
+                                Email: {{ inquiry.email }} {% if inquiry.phone %} | Phone: {{ inquiry.phone }}{% endif %}
+                            </div>
+                            <div class="inquiry-time">{{ inquiry.created_at }}</div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function logout() {
+            // Clear session and redirect to login
+            document.cookie = 'session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/';
+            window.location.href = '{{ url_for("login") }}';
+        }
+    </script>
+</body>
+
+</html>

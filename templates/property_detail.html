@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ property.title }} - Hyderabad Property Deals</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles_enhanced.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='additional_styles.css') }}">
+</head>
+
+<body>
+    <header class="main-header">
+        <div class="container header-container">
+            <div class="logo">
+                <a href="{{ url_for('index') }}">
+                    <i class="fas fa-home"></i>
+                    <span>Hyderabad Property Deals</span>
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    {% if 'user_id' in session %}
+                    <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+                    <li><a href="#" onclick="logout()">Logout</a></li>
+                    {% else %}
+                    <li><a href="{{ url_for('login') }}">Login</a></li>
+                    <li><a href="{{ url_for('register') }}">Register</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="property-details">
+        <div class="container">
+            <div class="property-details-container">
+                <div class="property-details-image">
+                    <img src="{{ url_for('static', filename='images/property' + property.id|string + '.jpg') }}" alt="{{ property.title }}">
+                    <div class="property-details-price">₹{{ property.price }}</div>
+                </div>
+
+                <div class="property-details-content">
+                    <div class="property-details-header">
+                        <h1>{{ property.title }}</h1>
+                        <p class="location"><i class="fas fa-map-marker-alt"></i> {{ property.location }}, Hyderabad</p>
+                    </div>
+
+                    <div class="property-details-features">
+                        <div class="feature-item">
+                            <i class="fas fa-bed"></i>
+                            <div>
+                                <strong>{{ property.bedrooms }}</strong>
+                                <span>Bedrooms</span>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-bath"></i>
+                            <div>
+                                <strong>{{ property.bathrooms }}</strong>
+                                <span>Bathrooms</span>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-vector-square"></i>
+                            <div>
+                                <strong>{{ property.area }}</strong>
+                                <span>Square Feet</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="property-details-description">
+                        <h2>Description</h2>
+                        <p>{{ property.description }}</p>
+                    </div>
+
+                    <div class="property-details-amenities">
+                        <h2>Amenities</h2>
+                        <div class="amenities-list">
+                            <div class="amenity-item">
+                                <i class="fas fa-parking"></i>
+                                <span>Parking Space</span>
+                            </div>
+                            <div class="amenity-item">
+                                <i class="fas fa-swimming-pool"></i>
+                                <span>Swimming Pool</span>
+                            </div>
+                            <div class="amenity-item">
+                                <i class="fas fa-dumbbell"></i>
+                                <span>Gym</span>
+                            </div>
+                            <div class="amenity-item">
+                                <i class="fas fa-video"></i>
+                                <span>Security</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="property-details-contact">
+                        <h2>Contact Agent</h2>
+                        <form class="contact-form" id="contactForm">
+                            <input type="hidden" id="property_id" name="property_id" value="{{ property.id }}">
+                            <div class="form-group">
+                                <label for="name">Your Name</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone</label>
+                                <input type="tel" id="phone" name="phone" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Message</label>
+                                <textarea id="message" name="message" required></textarea>
+                            </div>
+                            <button type="submit">Send Message</button>
+                        </form>
+                        <div id="errorMessage" class="message error" style="display: none;">
+                            <p id="errorText"></p>
+                        </div>
+                        <div id="successMessage" class="message success" style="display: none;">
+                            <p>Your inquiry has been submitted successfully! Our agent will contact you soon.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About Us</h3>
+                    <p>Hyderabad Property Deals is your trusted partner in finding the perfect property in Hyderabad. We offer a wide range of residential and commercial properties.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Properties</a></li>
+                        <li><a href="#">Services</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">About</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <p><i class="fas fa-phone"></i> +91 9876543210</p>
+                    <p><i class="fas fa-envelope"></i> info@hydpropertydeals.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Hyderabad, Telangana, India</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Hyderabad Property Deals. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+            const errorMessage = document.getElementById('errorMessage');
+            const errorText = document.getElementById('errorText');
+            const successMessage = document.getElementById('successMessage');
+
+            fetch('{{ url_for("submit_inquiry") }}', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        errorMessage.style.display = 'none';
+                        successMessage.style.display = 'block';
+                        this.reset();
+                    } else {
+                        errorText.textContent = data.message;
+                        errorMessage.style.display = 'block';
+                        successMessage.style.display = 'none';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    errorText.textContent = 'An error occurred. Please try again.';
+                    errorMessage.style.display = 'block';
+                    successMessage.style.display = 'none';
+                });
+        });
+
+        function logout() {
+            sessionStorage.removeItem('user');
+            localStorage.removeItem('user');
+            window.location.href = '{{ url_for("login") }}';
+        }
+    </script>
+</body>
+
+</html>
